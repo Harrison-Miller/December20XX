@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ChopMiss.wav-3ac3e63cd0e2465785aa32cc11e3da1f.sample"
+
+[deps]
+
+source_file="res://assets/sound/ChopMiss.wav"
+dest_files=[ "res://.import/ChopMiss.wav-3ac3e63cd0e2465785aa32cc11e3da1f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,275 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://assets/player.png" type="Texture" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/Chop.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sound/ChopMiss.wav" type="AudioStream" id=4]
+[ext_resource path="res://ChopUI.gd" type="Script" id=5]
+[ext_resource path="res://Snow.tres" type="Material" id=6]
+[ext_resource path="res://Footstep.tres" type="Material" id=7]
+[ext_resource path="res://assets/sound/Pikcup.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sound/Step.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/beacon.png" type="Texture" id=10]
+[ext_resource path="res://assets/icecrack.png" type="Texture" id=11]
+[ext_resource path="res://SpeechBubble.tscn" type="PackedScene" id=12]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 6.0
+
+[sub_resource type="Animation" id=13]
+resource_name = "Blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Beacon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 24.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "Chop"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "ChopIdle"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 12, 13 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "FuelIdle"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 6, 7 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "FuelWalk"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "Idle"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Walk"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5 ]
+}
+
+[sub_resource type="CircleShape2D" id=14]
+radius = 4.0
+
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+collision_layer = 33
+script = ExtResource( 2 )
+
+[node name="Footsteps" type="Particles2D" parent="."]
+position = Vector2( 0, 2 )
+z_index = -1
+emitting = false
+amount = 90
+lifetime = 30.0
+local_coords = false
+process_material = ExtResource( 7 )
+
+[node name="ChopUI" type="Node2D" parent="." groups=[
+"player",
+]]
+visible = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 4 )
+
+[node name="BeaconAnimation" type="AnimationPlayer" parent="."]
+anims/Blink = SubResource( 13 )
+
+[node name="Beacon" type="Sprite" parent="."]
+position = Vector2( 0, -20 )
+texture = ExtResource( 10 )
+offset = Vector2( -4, 0 )
+hframes = 4
+frame = 3
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 12 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -10 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 6
+frame = 13
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = -180
+smoothing_enabled = true
+editor_draw_screen = false
+
+[node name="InteractRange" type="Area2D" parent="."]
+visible = false
+monitorable = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractRange"]
+shape = SubResource( 5 )
+
+[node name="ChopRange" type="Area2D" parent="."]
+visible = false
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChopRange"]
+shape = SubResource( 12 )
+
+[node name="HoldTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="Snow" type="Particles2D" parent="."]
+position = Vector2( 0, -150 )
+z_index = 80
+emitting = false
+amount = 30
+lifetime = 6.0
+preprocess = 100.0
+local_coords = false
+process_material = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Chop = SubResource( 6 )
+anims/ChopIdle = SubResource( 7 )
+anims/FuelIdle = SubResource( 8 )
+anims/FuelWalk = SubResource( 9 )
+anims/Idle = SubResource( 10 )
+anims/Walk = SubResource( 11 )
+
+[node name="Chop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="ChopMiss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -8.0
+
+[node name="Step" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -8.0
+
+[node name="IceDetector" type="Area2D" parent="."]
+visible = false
+monitorable = false
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceDetector"]
+shape = SubResource( 14 )
+
+[node name="FakeWater" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, 16 )
+texture = ExtResource( 11 )
+region_enabled = true
+region_rect = Rect2( 32, 16, 32, 16 )
+
+[node name="SpeechAnchor" type="Node2D" parent="."]
+position = Vector2( 0, -40 )
+
+[node name="SpeechBubble" parent="SpeechAnchor" instance=ExtResource( 12 )]
+visible = false
+[connection signal="area_entered" from="InteractRange" to="." method="_on_InteractRange_area_entered"]
+[connection signal="area_exited" from="InteractRange" to="." method="_on_InteractRange_area_exited"]
+[connection signal="timeout" from="HoldTimer" to="." method="_on_HoldTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="ChopUI" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="IceDetector" to="." method="_on_IceDetector_area_entered"]
+[connection signal="area_exited" from="IceDetector" to="." method="_on_IceDetector_area_exited"]

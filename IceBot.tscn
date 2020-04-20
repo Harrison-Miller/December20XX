@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/icebot.png" type="Texture" id=1]
+[ext_resource path="res://IceBot.gd" type="Script" id=2]
+[ext_resource path="res://Footstep.tres" type="Material" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 3 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Attack"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 4, 5, 6, 7, 6, 7, 6, 7, 2 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "TurnOn"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 2, 0, 2, 0, 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Walk"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 2, 1 ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id=6]
+
+[node name="IceBot" type="KinematicBody2D" groups=[
+"icebot",
+]]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -5 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 4
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 3 )
+anims/TurnOn = SubResource( 2 )
+anims/Walk = SubResource( 4 )
+
+[node name="FollowRange" type="Area2D" parent="."]
+visible = false
+monitorable = false
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowRange"]
+shape = SubResource( 5 )
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Lazer" type="Line2D" parent="."]
+points = PoolVector2Array( 0.5, -4, 64, 0 )
+width = 0.5
+default_color = Color( 0.372549, 0.803922, 0.894118, 1 )
+
+[node name="LazerTween" type="Tween" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 32
+
+[node name="Choppable" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Choppable"]
+shape = SubResource( 6 )
+
+[node name="Footsteps" type="Particles2D" parent="."]
+position = Vector2( 0, 1.97364 )
+z_index = -1
+amount = 45
+lifetime = 30.0
+local_coords = false
+process_material = ExtResource( 3 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="body_entered" from="FollowRange" to="." method="_on_FollowRange_body_entered"]
+[connection signal="body_exited" from="FollowRange" to="." method="_on_FollowRange_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]

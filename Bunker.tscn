@@ -1,0 +1,278 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://assets/bunker.png" type="Texture" id=1]
+[ext_resource path="res://assets/bunkerpuzzle.png" type="Texture" id=2]
+[ext_resource path="res://assets/fire.png" type="Texture" id=3]
+[ext_resource path="res://Bunker.gd" type="Script" id=4]
+[ext_resource path="res://Sparks.tres" type="Material" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 45, 30 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Door:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 6.0
+
+[sub_resource type="Animation" id=4]
+resource_name = "large"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "medium"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "small"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "xlarge"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "large"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireRight:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "medium"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireRight:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "small"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireRight:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "xlarge"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireRight:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="CircleShape2D" id=12]
+
+[sub_resource type="RectangleShape2D" id=13]
+
+[node name="Bunker" type="StaticBody2D" groups=[
+"bunker",
+]]
+script = ExtResource( 4 )
+
+[node name="Door" type="Sprite" parent="."]
+position = Vector2( 0, 10 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 4
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="SparksLeft" type="Particles2D" parent="."]
+position = Vector2( -34.1843, 31.3763 )
+amount = 4
+lifetime = 1.5
+process_material = ExtResource( 5 )
+
+[node name="FireLeft" type="Sprite" parent="."]
+position = Vector2( -34, 26 )
+texture = ExtResource( 3 )
+vframes = 4
+hframes = 4
+frame = 11
+
+[node name="SparksRight" type="Particles2D" parent="."]
+position = Vector2( 29.0566, 31.1321 )
+amount = 4
+lifetime = 1.5
+process_material = ExtResource( 5 )
+
+[node name="FireRight" type="Sprite" parent="."]
+position = Vector2( 29, 26 )
+texture = ExtResource( 3 )
+vframes = 4
+hframes = 4
+frame = 15
+
+[node name="Puzzle" type="Sprite" parent="."]
+position = Vector2( 0, 40 )
+texture = ExtResource( 2 )
+vframes = 5
+
+[node name="DoorAnimation" type="AnimationPlayer" parent="."]
+anims/Open = SubResource( 2 )
+
+[node name="FireBotDetector" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireBotDetector"]
+position = Vector2( -34.0622, 36.3818 )
+shape = SubResource( 3 )
+
+[node name="FuelTimer" type="Timer" parent="."]
+
+[node name="FireLeftAnimation" type="AnimationPlayer" parent="."]
+anims/large = SubResource( 4 )
+anims/medium = SubResource( 5 )
+anims/small = SubResource( 6 )
+anims/xlarge = SubResource( 7 )
+
+[node name="FireRightAnimation" type="AnimationPlayer" parent="."]
+anims/large = SubResource( 8 )
+anims/medium = SubResource( 9 )
+anims/small = SubResource( 10 )
+anims/xlarge = SubResource( 11 )
+
+[node name="LeftInteract" type="Area2D" parent="." groups=[
+"leftbunker",
+]]
+monitoring = false
+collision_layer = 2
+collision_mask = 1025
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftInteract"]
+position = Vector2( -34.2381, 36.1315 )
+shape = SubResource( 12 )
+
+[node name="RightInteract" type="Area2D" parent="." groups=[
+"rightbunker",
+]]
+position = Vector2( 29, 0 )
+monitoring = false
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightInteract"]
+position = Vector2( 0.157784, 35.6581 )
+shape = SubResource( 12 )
+
+[node name="PlayerTrigger" type="Area2D" parent="."]
+position = Vector2( 0, 22 )
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerTrigger"]
+shape = SubResource( 13 )
+[connection signal="animation_finished" from="DoorAnimation" to="." method="_on_DoorAnimation_animation_finished"]
+[connection signal="body_entered" from="FireBotDetector" to="." method="_on_FireBotDetector_body_entered"]
+[connection signal="timeout" from="FuelTimer" to="." method="_on_FuelTimer_timeout"]
+[connection signal="body_entered" from="PlayerTrigger" to="." method="_on_PlayerTrigger_body_entered"]

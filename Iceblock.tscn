@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/iceblock.png" type="Texture" id=1]
+[ext_resource path="res://Iceblock.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/IceBreak.wav" type="AudioStream" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14, 5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14, 5 )
+
+[node name="Iceblock" type="StaticBody2D" groups=[
+"iceblock",
+]]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -12 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+monitoring = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="IceBreak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+max_distance = 200.0

@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/giantrobot.png-ffe0a414054311c883b8e424c8d629ef.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/giantrobot.png"
+dest_files=[ "res://.import/giantrobot.png-ffe0a414054311c883b8e424c8d629ef.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
